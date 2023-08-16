@@ -58,23 +58,24 @@ def comDel(dbFilePath):
     for lTask in lTasks:
         if iTaskNumber != lTask[0]:
             continue
+
         sChoice = input(f"--Do you want to delete task {lTask[1]}? (y/n)--\n: ")
-        if sChoice == "y":
-            with open(dbFilePath, 'r') as file:
-                lLines = file.readlines()
-                with open(dbFilePath, 'w') as writeFile:
-                    for sLine in lLines:
-                        if sLine == "\n":
-                            continue
-                        taskname, _ = sLine.split(", ")
-                        #print(sLine.split(", "))
-                        tasknum, _ = taskname.split(": ")
-                        tasknum = int(tasknum[4:])
-                        #print(taskname.split(": "))
-                        if tasknum != iTaskNumber:
-                            writeFile.write(sLine)
-                            #print(f"\n--+debug+--\nsLine: {sLine}\ntasknum: {tasknum}\niTaskNumber: {iTaskNumber}")
-        return
+        if sChoice != "y":
+            return
+
+        with open(dbFilePath, 'r') as file:
+            lLines = file.readlines()
+            with open(dbFilePath, 'w') as writeFile:
+                for sLine in lLines:
+                    if sLine == "\n":
+                        continue
+
+                    taskname, _ = sLine.split(", ")
+                    tasknum, _ = taskname.split(": ")
+                    tasknum = int(tasknum[4:])
+
+                    if tasknum != iTaskNumber:
+                        writeFile.write(sLine)
 
 
     
